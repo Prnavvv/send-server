@@ -21,10 +21,10 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
     console.log(`User Connected: ${socket.id}`)
 
-    socket.on("send_message",(data)=>{
+    /*socket.on("send_message",(data)=>{
         console.log(data);
         socket.broadcast.emit("receive_message", data);
-    });
+    });*/
 
     socket.on("create_room",(data)=>{
         socket.join(data);
@@ -36,6 +36,7 @@ io.on("connection", (socket) => {
     });
 
     socket.on("send_message", (data) => {
+        
         socket.to(data.room).emit("receive_message", data);
     });
 
